@@ -1,7 +1,7 @@
 import pandas as pd
 from fastapi import APIRouter
 from rec import find_most_similar_category,categories
-
+from pydantic import BaseModel
 
 process_router = APIRouter()
 
@@ -17,10 +17,13 @@ df['FBP'] = df['FBP'].apply(percent2int)
 
 
 async def get_commissions(category:str,price:int):
+    is_model_called = False
+    acc = 1
     r = df.loc[df['商品类别'] == category]
     if len(r) == 0:
-        category,_ = find_most_similar_category(category, categories)
+        category,acc = find_most_similar_category(category, categories)
         r = df.loc[df['商品类别'] == category]
+        is_model_called = True
 
     rlist = list(r.values[0])
     rFBS_over_1500 = round(price*rlist[1],2)
@@ -29,13 +32,16 @@ async def get_commissions(category:str,price:int):
     FBP = round(price*rlist[4],2)
 
     if price>1500:
-        return {'rFBS':rFBS_over_1500,'FBP':FBP_over_1500,'category':category}
-    return {'rFBS':rFBS,'FBP':FBP,'category':category}
+        return {'rFBS':rFBS_over_1500,'FBP':FBP_over_1500,'category':category,'ratio':rlist[1:],'isModelCalled':is_model_called,'acc':acc}
+    return {'rFBS':rFBS,'FBP':FBP,'category':category,'ratio':rlist[1:],'isModelCalled':is_model_called,'acc':acc}
 
+class ItemCommissions(BaseModel):
+    category:str
+    price:int
 
-@process_router.get('/commissions/{category}')
-async def get_commissions_router(category:str):
-    return await get_commissions(category,6000)
+@process_router.post('/commissions/')
+async def get_commissions_router(item:ItemCommissions):
+    return await get_commissions(item.category,item.price)
 
 
 if __name__ == '__main__':

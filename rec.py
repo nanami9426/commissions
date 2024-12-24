@@ -15,7 +15,7 @@ def find_most_similar_category(input_word, categories):
     category_embeddings = model.encode(categories, convert_to_tensor=True)
     similarities = util.cos_sim(input_embedding, category_embeddings)
     max_index = similarities.argmax().item()
-    return categories[max_index],similarities
+    return categories[max_index],round(similarities[0][max_index].item(),4)
 
 
 
