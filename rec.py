@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer, util
 
-model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+model = SentenceTransformer('./recmodel')
 
 from fastapi import APIRouter
 rec_router = APIRouter()
