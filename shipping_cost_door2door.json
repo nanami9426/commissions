@@ -1,0 +1,32 @@
+{
+    "extra_small":{
+        "express":[0.04,2.8],
+        "standard":[0.0295,2.8],
+        "economy":[0.023,2.8]
+    },
+    "budget":{
+        "express":[0.03295,18],
+        "standard":[0.02495,18],
+        "economy":[0.0165,23]
+    },
+    "small":{
+        "express":[0.04,18.4],
+        "standard":[0.0286,18.4],
+        "economy":[0.023,17.5]
+    },
+    "big":{
+        "express":[0.033,39.4],
+        "standard":[0.024,39.4],
+        "economy":[0.017,39.4]
+    },
+    "premium_small":{
+        "express":[0.04,23.5],
+        "standard":[0.0269,23.5],
+        "economy":[0.0239,23.5]
+    },
+    "premium_big":{
+        "express":[0.032,65.4],
+        "standard":[0.025,65.4],
+        "economy":[0.017,65.4]
+    }
+}
