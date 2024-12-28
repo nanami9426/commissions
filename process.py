@@ -203,13 +203,13 @@ async def get_commissions(category:str,price:float,weight:float,cost:float):
 
 class ItemCommissions(BaseModel):
     category3:str
-    sele:float
+    sale:float
     weight:float
     cost:float
 
 @process_router.post('/commissions/')
 async def get_commissions_router(item:ItemCommissions):
-    return await get_commissions(item.category3,item.sele,item.weight,item.cost)
+    return await get_commissions(item.category3,item.sale,item.weight,item.cost)
 
 
 if __name__ == '__main__':
